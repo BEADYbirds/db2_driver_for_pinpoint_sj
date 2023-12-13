@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ibm.profiler</groupId>
+	<artifactId>com.ibm.profiler</artifactId>
+	<version>1.5.0.1</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- Encoding Properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Java compiler properties -->
+		<compiler.source.version>1.8</compiler.source.version>
+		<compiler.target.version>1.8</compiler.target.version>
+
+		<!-- Maven Plug-in Version Properties -->
+		<maven.compiler.version>2.3.2</maven.compiler.version>
+		<deploy.plugin.version></deploy.plugin.version>
+
+		<!-- 3rd Party Test Dependency Version Properties -->
+		<junit.version>4.13.1</junit.version>
+		<apache.commons.lang.3.version>3.1</apache.commons.lang.3.version>
+		<javax.servlet.api.version>3.1.0</javax.servlet.api.version>
+		<org.aspectj.version>1.8.10</org.aspectj.version>
+		<org.mockito.version>1.10.19</org.mockito.version>
+		<org.apache.logging.log4j.version>2.17.1</org.apache.logging.log4j.version>
+	</properties>
+
+	<modules>
+		<module>../com.ibm.profiler.core</module>
+		<module>../com.ibm.profiler.cassandra</module>
+		<module>../com.ibm.profiler.jdbc</module>
+		<module>../com.ibm.profiler.client</module>
+		<module>../com.ibm.profiler.mongo</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<debug>false</debug>
+					<optimize>true</optimize>
+					<source>${compiler.source.version}</source>
+					<target>${compiler.target.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<!-- 
+				<version>${deploy.plugin.version}</version>
+				 -->
+				<configuration>
+					<skip>false</skip>
+					<deployAtEnd>true</deployAtEnd>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- 3rd Party Test Dependencies -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>${org.mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- Repositories for distributing artifacts -->
+	<distributionManagement>
+		<repository>
+			<id>b2b-releases-local</id>
+			<name>perf-monitor Software Releases</name>
+			<url>${artifacthost.url}/artifactory/b2b-releases-local/</url>
+		</repository>
+		<snapshotRepository>
+			<id>b2b-snapshots-local</id>
+			<name>perf-monitor Software Snapshots</name>
+			<url>${artifacthost.url}/artifactory/b2b-snapshots-local/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>
